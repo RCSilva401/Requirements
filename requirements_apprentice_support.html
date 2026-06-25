@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mastering Requirements – Study Guide</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans,'Segoe UI',system-ui,sans-serif);background:var(--color-background-tertiary,#f5f4f0);color:var(--color-text-primary,#1a1a1a);min-height:100vh}
+:root{
+--mv-coral:#D85A30;--mv-coral-light:#FAECE7;--mv-coral-dark:#712B13;
+--mv-teal:#1D9E75;--mv-teal-light:#E1F5EE;--mv-teal-dark:#085041;
+--mv-purple:#534AB7;--mv-purple-light:#EEEDFE;--mv-purple-dark:#26215C;
+--mv-amber:#BA7517;--mv-amber-light:#FAEEDA;--mv-amber-dark:#412402;
+--mv-blue:#185FA5;--mv-blue-light:#E6F1FB;--mv-blue-dark:#042C53;
+--mv-gray-light:#F1EFE8;
+}
+header{background:#D85A30;padding:0}
+.header-inner{max-width:960px;margin:0 auto;padding:1.25rem 2rem;display:flex;align-items:center;gap:1rem}
+.header-logo{width:36px;height:36px;background:#fff;border-radius:var(--border-radius-md,8px);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.header-logo span{font-weight:500;font-size:13px;color:#D85A30;letter-spacing:-0.5px}
+.header-title{color:#fff}
+.header-title h1{font-size:18px;font-weight:500;line-height:1.2}
+.header-title p{font-size:12px;opacity:0.85;margin-top:2px}
+.header-badge{margin-left:auto;background:rgba(255,255,255,0.2);color:#fff;font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;border:0.5px solid rgba(255,255,255,0.35);white-space:nowrap}
+
+.container{max-width:960px;margin:0 auto;padding:1.25rem 2rem}
+
+.tabs-bar{display:flex;background:var(--color-background-primary,#fff);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg,12px);overflow:hidden;margin-bottom:1.25rem}
+.tab-btn{flex:1;padding:9px 4px;border:none;background:transparent;cursor:pointer;font-size:12px;font-weight:500;color:var(--color-text-secondary);border-right:0.5px solid var(--color-border-tertiary);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;transition:all 0.12s;line-height:1.3}
+.tab-btn:last-child{border-right:none}
+.tab-btn:hover{background:var(--mv-gray-light);color:var(--color-text-primary)}
+.tab-btn.active{background:#D85A30;color:#fff}
+.tab-btn i{font-size:16px}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+.card{background:var(--color-background-primary,#fff);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg,12px);padding:1.25rem 1.5rem;margin-bottom:1rem}
+.card h2{font-size:17px;font-weight:500;margin-bottom:0.75rem;color:var(--color-text-primary)}
+.card h3{font-size:15px;font-weight:500;margin-bottom:0.5rem;color:var(--color-text-primary)}
+.card p{font-size:14px;line-height:1.7;color:var(--color-text-primary);margin-bottom:0.5rem}
+.card ul,ol{padding-left:1.25rem;font-size:14px;line-height:1.8;color:var(--color-text-primary)}
+
+.slabel{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.08em;color:var(--color-text-secondary);margin-bottom:0.5rem}
+
+.badge{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:500;padding:2px 8px;border-radius:20px;margin:2px}
+.badge-coral{background:#FAECE7;color:#712B13}
+.badge-teal{background:#E1F5EE;color:#085041}
+.badge-purple{background:#EEEDFE;color:#26215C}
+.badge-amber{background:#FAEEDA;color:#412402}
+.badge-blue{background:#E6F1FB;color:#042C53}
+
+.ibox{border-radius:var(--border-radius-md,8px);padding:0.75rem 1rem;margin-bottom:0.65rem;font-size:13.5px;line-height:1.7}
+.ibox b{font-weight:500}
+.i-teal{background:#E1F5EE;border-left:3px solid #1D9E75;color:#04342C}
+.i-coral{background:#FAECE7;border-left:3px solid #D85A30;color:#712B13}
+.i-purple{background:#EEEDFE;border-left:3px solid #534AB7;color:#26215C}
+.i-amber{background:#FAEEDA;border-left:3px solid #BA7517;color:#412402}
+.i-blue{background:#E6F1FB;border-left:3px solid #185FA5;color:#042C53}
+
+.pro-tip{background:#FAEEDA;border:0.5px solid #EF9F27;border-radius:var(--border-radius-md,8px);padding:0.75rem 1rem;font-size:13.5px;line-height:1.7;color:#412402;margin-bottom:0.65rem}
+
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.75rem;margin-bottom:1rem}
+@media(max-width:640px){.grid-2,.grid-3{grid-template-columns:1fr}.tabs-bar{flex-wrap:wrap}}
+
+.mini-card{background:var(--color-background-secondary,#f5f4f0);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md,8px);padding:0.9rem}
+.mini-card h4{font-size:13px;font-weight:500;margin-bottom:0.35rem;color:var(--color-text-primary)}
+.mini-card p{font-size:13px;line-height:1.6;color:var(--color-text-secondary)}
+
+.pipeline{display:flex;align-items:stretch;gap:0;margin:0.75rem 0 1rem;overflow-x:auto;padding-bottom:2px}
+.pipe-step{flex-shrink:0;background:#D85A30;color:#fff;font-size:11px;font-weight:500;padding:7px 14px;position:relative;text-align:center;min-width:80px;display:flex;align-items:center;justify-content:center}
+.pipe-step:first-child{border-radius:6px 0 0 6px}
+.pipe-step:last-child{border-radius:0 6px 6px 0}
+.pipe-step:not(:last-child)::after{content:'';position:absolute;right:-9px;top:0;width:0;height:100%;border-top:17px solid transparent;border-bottom:17px solid transparent;border-left:9px solid #D85A30;z-index:1}
+.pipe-step:not(:first-child){padding-left:18px}
+.pipe-step.teal{background:#1D9E75}
+.pipe-step.teal::after{border-left-color:#1D9E75}
+.pipe-step.purple{background:#534AB7}
+.pipe-step.purple::after{border-left-color:#534AB7}
+.pipe-step.amber{background:#BA7517}
+.pipe-step.amber::after{border-left-color:#BA7517}
+.pipe-step.blue{background:#185FA5}
+.pipe-step.blue::after{border-left-color:#185FA5}
+
+.ksb-tag{display:inline-flex;align-items:center;font-size:10px;font-weight:500;background:#EEEDFE;color:#26215C;border:0.5px solid #AFA9EC;padding:2px 6px;border-radius:4px;margin:2px;letter-spacing:0.02em}
+
+.stage-card{border-radius:var(--border-radius-md,8px);padding:0.85rem 1rem;margin-bottom:0.5rem;font-size:13.5px;line-height:1.6}
+.st-coral{background:#FAECE7;border-left:3px solid #D85A30;color:#712B13}
+.st-teal{background:#E1F5EE;border-left:3px solid #1D9E75;color:#085041}
+.st-purple{background:#EEEDFE;border-left:3px solid #534AB7;color:#26215C}
+.st-amber{background:#FAEEDA;border-left:3px solid #BA7517;color:#412402}
+.st-blue{background:#E6F1FB;border-left:3px solid #185FA5;color:#042C53}
+
+.compare-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:0.65rem;table-layout:fixed}
+.compare-table th{background:#D85A30;color:#fff;padding:8px 10px;text-align:left;font-weight:500;font-size:11px}
+.compare-table td{padding:7px 10px;border-bottom:0.5px solid var(--color-border-tertiary);vertical-align:top;line-height:1.5;color:var(--color-text-primary);word-break:normal}
+.compare-table tr:last-child td{border-bottom:none}
+.compare-table tr:nth-child(even) td{background:var(--color-background-secondary,#f9f9f9)}
+
+.nfr-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:0.5rem;margin:0.65rem 0}
+.nfr-pill{background:var(--color-background-primary,#fff);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md,8px);padding:0.6rem 0.75rem;text-align:center;font-size:12.5px;font-weight:500;color:var(--color-text-primary)}
+.nfr-pill i{display:block;font-size:20px;margin-bottom:4px;color:#D85A30}
+
+.q-activity{background:var(--color-background-primary,#fff);border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-lg,12px);padding:1.25rem;margin-bottom:1rem}
+.q-number{font-size:10px;font-weight:500;color:#D85A30;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.35rem}
+.q-text{font-size:14px;font-weight:500;line-height:1.6;margin-bottom:0.75rem;color:var(--color-text-primary)}
+.q-options{display:flex;flex-direction:column;gap:0.4rem}
+.q-opt{padding:8px 12px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md,8px);font-size:13.5px;cursor:pointer;transition:all 0.1s;background:var(--color-background-secondary,#f9f9f9);color:var(--color-text-primary);text-align:left}
+.q-opt:hover{border-color:#D85A30;background:#FAECE7;color:#712B13}
+.q-opt.sel-right{background:#E1F5EE;border-color:#1D9E75;color:#085041;font-weight:500}
+.q-opt.sel-wrong{background:#FAECE7;border-color:#D85A30;color:#712B13}
+.q-feedback{margin-top:0.5rem;font-size:13px;line-height:1.6;padding:8px 12px;border-radius:var(--border-radius-md,8px);display:none}
+.q-feedback.show{display:block}
+.fb-right{background:#E1F5EE;color:#085041}
+.fb-wrong{background:#FAECE7;color:#712B13}
+
+.reveal-btn{background:#D85A30;color:#fff;border:none;border-radius:var(--border-radius-md,8px);padding:7px 14px;font-size:13px;font-weight:500;cursor:pointer;margin-top:0.5rem;transition:background 0.12s}
+.reveal-btn:hover{background:#712B13}
+.reveal-content{display:none;margin-top:0.65rem;padding:0.85rem 1rem;background:#E1F5EE;border-radius:var(--border-radius-md,8px);font-size:13.5px;line-height:1.7;color:#04342C}
+.reveal-content.show{display:block}
+
+.distinction-box{background:#FAEEDA;border:0.5px solid #EF9F27;border-radius:var(--border-radius-md,8px);padding:0.85rem 1rem;font-size:13.5px;color:#412402;margin-bottom:0.65rem}
+
+.checklist{list-style:none;padding:0}
+.checklist li{display:flex;align-items:flex-start;gap:8px;padding:5px 0;font-size:13.5px;line-height:1.6;border-bottom:0.5px solid var(--color-border-tertiary);color:var(--color-text-primary)}
+.checklist li:last-child{border-bottom:none}
+.checklist li::before{content:'';width:14px;height:14px;border-radius:50%;background:#FAECE7;border:1.5px solid #D85A30;flex-shrink:0;margin-top:3px}
+
+.evidence-block{background:var(--color-background-secondary,#f9f9f9);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg,12px);padding:1.25rem 1.5rem;margin-top:1.25rem}
+.evidence-block h3{font-size:15px;font-weight:500;color:var(--color-text-primary);margin-bottom:0.75rem;display:flex;align-items:center;gap:6px}
+.evidence-block h3 i{font-size:16px;color:#D85A30}
+.ev-ksb{margin-bottom:1rem;padding-bottom:1rem;border-bottom:0.5px solid var(--color-border-tertiary)}
+.ev-ksb:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
+.ev-ksb-head{display:flex;align-items:center;gap:6px;margin-bottom:0.5rem}
+
+.timeline{position:relative;padding-left:1.75rem}
+.timeline::before{content:'';position:absolute;left:7px;top:4px;bottom:0;width:1.5px;background:var(--color-border-secondary)}
+.tl-item{position:relative;margin-bottom:1.1rem}
+.tl-dot{position:absolute;left:-1.5rem;top:3px;width:13px;height:13px;border-radius:50%;background:#D85A30;border:2px solid var(--color-background-primary,#fff)}
+.tl-item h4{font-size:13.5px;font-weight:500;margin-bottom:2px;color:var(--color-text-primary)}
+.tl-item p{font-size:13px;color:var(--color-text-secondary);line-height:1.6}
+
+.feedback-link-btn{display:inline-flex;align-items:center;gap:8px;background:#D85A30;color:#fff;text-decoration:none;padding:11px 22px;border-radius:var(--border-radius-md,8px);font-size:14px;font-weight:500;margin-top:1rem;transition:background 0.12s}
+.feedback-link-btn:hover{background:#712B13}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-logo"><span>MV</span></div>
+    <div class="header-title">
+      <h1>Mastering requirements</h1>
+      <p>ST0117 Business analyst apprenticeship · interactive study guide</p>
+    </div>
+    <div class="header-badge">25 June 2026</div>
+  </div>
+</header>
+
+<div class="container">
+
+<div class="tabs-bar" role="tablist">
+  <button class="tab-btn active" onclick="switchTab('overview',this)" role="tab"><i class="ti ti-map" aria-hidden="true"></i><span>Overview</span></button>
+  <button class="tab-btn" onclick="switchTab('elicitation',this)" role="tab"><i class="ti ti-ear" aria-hidden="true"></i><span>Elicitation</span></button>
+  <button class="tab-btn" onclick="switchTab('documenting',this)" role="tab"><i class="ti ti-file-description" aria-hidden="true"></i><span>Documenting</span></button>
+  <button class="tab-btn" onclick="switchTab('prioritisation',this)" role="tab"><i class="ti ti-list-numbers" aria-hidden="true"></i><span>Priority &amp; mgmt</span></button>
+  <button class="tab-btn" onclick="switchTab('activities',this)" role="tab"><i class="ti ti-pencil" aria-hidden="true"></i><span>Activities</span></button>
+  <button class="tab-btn" onclick="switchTab('solutions',this)" role="tab"><i class="ti ti-key" aria-hidden="true"></i><span>Solutions</span></button>
+</div>
+
+<!-- ===== OVERVIEW ===== -->
+<div id="tab-overview" class="tab-panel active">
+
+  <div class="card">
+    <div class="slabel">Today's session</div>
+    <h2>What we're covering</h2>
+    <p>This guide runs alongside your live masterclass. Use each tab to follow the modules, complete activities, and check your answers. All KSBs map directly to the ST0117 End Point Assessment standard.</p>
+    <div style="margin-top:0.75rem">
+      <span class="ksb-tag">K12</span><span class="ksb-tag">K13</span><span class="ksb-tag">K14</span><span class="ksb-tag">K15</span><span class="ksb-tag">K16</span><span class="ksb-tag">K17</span><span class="ksb-tag">S12</span><span class="ksb-tag">S13</span><span class="ksb-tag">S14</span><span class="ksb-tag">S15</span><span class="ksb-tag">S16</span><span class="ksb-tag">S17</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>The requirements engineering lifecycle</h2>
+    <div class="pipeline">
+      <div class="pipe-step">Elicitation</div>
+      <div class="pipe-step teal">Analysis</div>
+      <div class="pipe-step purple">Documentation</div>
+      <div class="pipe-step amber">Validation</div>
+      <div class="pipe-step blue">Management</div>
+    </div>
+    <div class="ibox i-coral"><b>Key point:</b> This is not a linear process. Gaps found during analysis push you back into elicitation. Errors in validation loop back into analysis. Requirements management runs in parallel throughout.</div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" style="margin-bottom:0">
+      <h3>What is a requirement?</h3>
+      <p>A statement of a feature, capability, or qualitative constraint that a product, process, or system must have to solve a business problem.</p>
+      <div style="margin-top:0.65rem">
+        <div class="ibox i-teal" style="margin-bottom:0.3rem">Defines the <b>what</b>, not the how</div>
+        <div class="ibox i-teal" style="margin-bottom:0.3rem">Clear and concise — no ambiguous filler words</div>
+        <div class="ibox i-teal" style="margin-bottom:0.3rem">Unambiguous — exactly one interpretation</div>
+        <div class="ibox i-teal" style="margin-bottom:0.3rem">Testable — binary pass/fail possible</div>
+        <div class="ibox i-teal" style="margin-bottom:0">Traceable — linked to ID, source, business goal</div>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:0">
+      <h3>Requirements hierarchy</h3>
+      <div class="stage-card st-coral"><b>Business requirements</b> — sponsor's view: strategic goals, compliance, revenue targets</div>
+      <div class="stage-card st-teal"><b>User / stakeholder requirements</b> — end-user view: tasks, inputs, outputs needed day-to-day</div>
+      <div class="stage-card st-purple"><b>Functional system requirements</b> — what the system must do: actions, behaviours, outputs</div>
+      <div class="stage-card st-amber"><b>Non-functional system requirements</b> — how well: performance, security, availability, usability</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:1rem">
+    <h2>The four blocks of today</h2>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-dot"></div><h4>Block 1 — Elicitation fundamentals <span class="ksb-tag">K12</span><span class="ksb-tag">K13</span><span class="ksb-tag">S12</span></h4><p>Mindset shift from passive scribe to active investigator. Elicitation vs gathering. Technique selection and justification.</p></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#1D9E75"></div><h4>Block 2 — Documenting &amp; QA <span class="ksb-tag">K14</span><span class="ksb-tag">K16</span><span class="ksb-tag">K17</span><span class="ksb-tag">S13</span><span class="ksb-tag">S14</span></h4><p>Requirements tables, NFRs, UX/accessibility, removing duplication and conflict.</p></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#534AB7"></div><h4>Block 3 — Prioritisation &amp; management <span class="ksb-tag">K14</span><span class="ksb-tag">K15</span><span class="ksb-tag">S15</span><span class="ksb-tag">S16</span><span class="ksb-tag">S17</span></h4><p>Validation techniques, MoSCoW &amp; RICE frameworks, change control, traceability.</p></div>
+      <div class="tl-item" style="margin-bottom:0"><div class="tl-dot" style="background:#BA7517"></div><h4>Distinction engine — S13 critical evaluation</h4><p>Evaluating documentation approaches, contributing to local standards, driving adoption across your organisation.</p></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Common misconceptions to watch for</h2>
+    <div class="ibox i-coral"><b>Misconception:</b> "My job is to write down exactly what the stakeholder tells me."<br><b>Reality:</b> Stakeholders state a messy mixture of symptoms, complaints, and premature solutions. Your job is to engineer what the business actually needs.</div>
+    <div class="ibox i-coral"><b>Misconception:</b> "Requirements engineering is a linear, one-and-done process."<br><b>Reality:</b> It is highly iterative — analysis reveals gaps that send you back to elicitation; validation errors loop back into analysis.</div>
+    <div class="ibox i-coral"><b>Misconception:</b> "Non-functional requirements are optional."<br><b>Reality:</b> Stakeholders assume NFRs are already met. Omitting them causes performance failures, security breaches, and accessibility failures at launch.</div>
+  </div>
+
+</div>
+
+<!-- ===== ELICITATION ===== -->
+<div id="tab-elicitation" class="tab-panel">
+
+  <div class="card">
+    <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.75rem">
+      <h2 style="margin-bottom:0">Block 1: Elicitation fundamentals</h2>
+      <span class="ksb-tag">K12</span><span class="ksb-tag">K13</span><span class="ksb-tag">S12</span>
+    </div>
+    <div class="ibox i-purple">The industry shifted from "Requirements <i>Gathering</i>" to "Requirements <i>Elicitation</i>" because requirements must be carefully drawn out — they are not already formed and waiting to be picked up. Stakeholders rarely know exactly what they need or can express it clearly.</div>
+  </div>
+
+  <div class="card">
+    <h3>Requirements vs solution descriptors <span class="ksb-tag">K13</span></h3>
+    <div class="grid-2" style="margin-top:0.65rem">
+      <div style="background:#FAECE7;border:0.5px solid #F5C4B3;border-radius:var(--border-radius-md,8px);padding:1rem">
+        <div style="font-size:11px;font-weight:500;color:#712B13;margin-bottom:5px;text-transform:uppercase;letter-spacing:0.06em">Solution descriptor — trap</div>
+        <p style="font-size:13.5px;line-height:1.6;margin-bottom:0;color:#712B13">"Deploy a high-end NLP conversational AI chatbot with database syncing."</p>
+      </div>
+      <div style="background:#E1F5EE;border:0.5px solid #9FE1CB;border-radius:var(--border-radius-md,8px);padding:1rem">
+        <div style="font-size:11px;font-weight:500;color:#085041;margin-bottom:5px;text-transform:uppercase;letter-spacing:0.06em">Elicited requirement — goal</div>
+        <p style="font-size:13.5px;line-height:1.6;margin-bottom:0;color:#085041">"Reduce customer service overhead and wait times during peak store enquiries."</p>
+      </div>
+    </div>
+    <div class="pro-tip" style="margin-top:0.75rem">Always ask "why" at least five times before accepting a stakeholder's stated solution. The Paris rugby match analogy: the requirement is being at the stadium for kick-off within budget — the specific train time is just one unvalidated option.</div>
+    <div class="distinction-box"><b>Distinction:</b> Explicitly document your K13 mindset for your assessor — never assume they can infer it. Show you distinguished between eliciting requirements and gathering solution descriptions, with concrete project examples and contrasting outcomes.</div>
+  </div>
+
+  <div class="card">
+    <h3>Elicitation technique matrix <span class="ksb-tag">K12</span><span class="ksb-tag">S12</span></h3>
+    <p style="font-size:13.5px;color:var(--color-text-secondary);margin-bottom:0.65rem">You must evaluate at least <b>3 techniques</b> with pros and cons for your portfolio.</p>
+    <div style="overflow-x:auto">
+    <table class="compare-table">
+      <thead><tr><th style="width:22%">Technique</th><th style="width:28%">Best when</th><th style="width:25%">Advantage</th><th style="width:25%">Limitation</th></tr></thead>
+      <tbody>
+        <tr><td><b>1-on-1 interview</b></td><td>Deep context needed from a specific expert</td><td>Rich discovery; builds rapport</td><td>Time-intensive; limited scale</td></tr>
+        <tr><td><b>Workshop / focus group</b></td><td>Conflicting cross-department views to resolve</td><td>Real-time alignment; collective ownership</td><td>Loudest voices can dominate</td></tr>
+        <tr><td><b>Survey / questionnaire</b></td><td>Large distributed user base; quantitative data</td><td>High reach; anonymous responses</td><td>Surface-level only; low response rates</td></tr>
+        <tr><td><b>Observation / shadowing</b></td><td>Uncovering tacit workarounds</td><td>Exposes what users do, not just say</td><td>Hawthorne effect; time-consuming</td></tr>
+        <tr><td><b>Document analysis</b></td><td>Legacy systems; existing processes</td><td>No stakeholder time needed</td><td>Documents may be outdated</td></tr>
+        <tr><td><b>Prototyping</b></td><td>Agile contexts; non-technical stakeholders</td><td>Makes requirements tangible</td><td>Scope creep risk; fixes thinking early</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="ibox i-amber" style="margin-top:0.65rem"><b>Hawthorne effect:</b> workers change their natural behaviour when being observed. Counter this by building rapport first and cross-checking with document analysis.</div>
+  </div>
+
+  <div class="card">
+    <h3>The three classic elicitation barriers</h3>
+    <div class="grid-3">
+      <div class="mini-card">
+        <h4>Symptoms vs root causes</h4>
+        <p>Stakeholders request fixes for surface symptoms. Use 5 Whys or Fishbone diagrams to dig deeper.</p>
+      </div>
+      <div class="mini-card">
+        <h4>"Duck-rabbit" phenomenon</h4>
+        <p>Different teams view the same process but perceive entirely different limitations. Resolve in a workshop.</p>
+      </div>
+      <div class="mini-card">
+        <h4>Tacit knowledge</h4>
+        <p>Experts execute complex tasks subconsciously and forget to mention crucial steps. Use observation to surface these.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- EVIDENCE BLOCK — Elicitation -->
+  <div class="evidence-block">
+    <h3><i class="ti ti-clipboard-check" aria-hidden="true"></i> Portfolio evidence — what to include</h3>
+
+    <div class="ev-ksb">
+      <div class="ev-ksb-head"><span class="ksb-tag">K12</span><span style="font-size:13px;font-weight:500;color:var(--color-text-primary)">Elicitation techniques — knowledge</span></div>
+      <ul class="checklist">
+        <li>Describe a minimum of 3 techniques with benefits and limitations of each</li>
+        <li>Explain when it is most appropriate to use each technique</li>
+        <li>Justify the importance of using appropriate techniques in requirements gathering</li>
+        <li>Link techniques to real examples from your own work where possible</li>
+      </ul>
+      <div class="pro-tip" style="margin-top:0.65rem">There may be crossover with investigation techniques from K9. You can tag the same table with both KSBs — but ensure you address each KSB's focus separately: K9 is about investigating a problem/business situation; K12 is specifically about eliciting requirements.</div>
+    </div>
+
+    <div class="ev-ksb">
+      <div class="ev-ksb-head"><span class="ksb-tag">K13</span><span style="font-size:13px;font-weight:500;color:var(--color-text-primary)">Requirements vs solution descriptors — knowledge</span></div>
+      <ul class="checklist">
+        <li>Explain the difference between eliciting requirements rather than solutions</li>
+        <li>Describe how you ensure you elicit requirements instead of solution descriptors</li>
+        <li>Use contrasting examples to contextualise the difference</li>
+        <li>Explain how project outcomes would differ based on what type of information is elicited</li>
+      </ul>
+      <div class="pro-tip" style="margin-top:0.65rem">Do not assume the assessor knows you think this way — spell it out explicitly. A short "requirements vs solutions" table with one real project example is a strong evidence format for K13.</div>
+    </div>
+
+    <div class="ev-ksb">
+      <div class="ev-ksb-head"><span class="ksb-tag">S12</span><span style="font-size:13px;font-weight:500;color:var(--color-text-primary)">Eliciting requirements — skill</span></div>
+      <ul class="checklist">
+        <li>Explain which elicitation techniques you used and why you chose them</li>
+        <li>Explain which stakeholders you involved and why you selected them</li>
+        <li>Provide direct evidence: meeting agenda, question list, survey, minutes, brainstorm photo</li>
+        <li>Summarise the business / user needs you identified (formal documentation comes in S13)</li>
+        <li>Explain why alternative techniques were not selected for your specific context</li>
+      </ul>
+      <div class="pro-tip" style="margin-top:0.65rem">S12 is about practical execution, not just knowing the techniques (that's K12). Provide real-world project evidence showing you planned, led, and executed an elicitation session with actual stakeholders.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== DOCUMENTING ===== -->
+<div id="tab-documenting" class="tab-panel">
+
+  <div class="card">
+    <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.75rem">
+      <h2 style="margin-bottom:0">Block 2: Documenting &amp; QA</h2>
+      <span class="ksb-tag">K14</span><span class="ksb-tag">K16</span><span class="ksb-tag">K17</span><span class="ksb-tag">S13</span><span class="ksb-tag">S14</span>
+    </div>
+    <div class="ibox i-teal">Documentation is not an administrative task — it is a core analysis tool. The act of writing a requirement into a structured template forces you to find hidden logical gaps and structural flaws.</div>
+  </div>
+
+  <div class="card">
+    <h3>Approaches to categorising requirements <span class="ksb-tag">K14</span><span class="ksb-tag">S13</span></h3>
+    <p style="font-size:13.5px;color:var(--color-text-secondary);margin-bottom:0.75rem">K14 asks you to explain the approaches. S13 asks you to demonstrate you applied them and to evaluate their advantages and disadvantages.</p>
+    <div class="grid-2">
+      <div>
+        <div class="stage-card st-coral"><b>Business requirements</b><br><span style="font-size:12.5px">Written from the project sponsor's or executive's view. Define overall project scope and high-level objectives.</span></div>
+        <div class="stage-card st-teal"><b>User / stakeholder requirements</b><br><span style="font-size:12.5px">Written from the end-user's view. Describe goals and inputs/outputs to complete daily operational tasks.</span></div>
+        <div class="stage-card st-purple"><b>Functional system requirements</b><br><span style="font-size:12.5px">What the system must explicitly do — the distinct actions, workflows, and behaviours.</span></div>
+        <div class="stage-card st-amber"><b>Non-functional system requirements</b><br><span style="font-size:12.5px">How well the system must execute — performance metrics, security limits, accessibility constraints.</span></div>
+      </div>
+      <div>
+        <div class="ibox i-coral"><b>Common fail:</b> Mixing levels. End-users rarely care about corporate ROI — they care about their daily tasks. Keep these viewpoints separated in your documentation to ensure clear traceability.</div>
+        <div class="ibox i-blue" style="margin-top:0.5rem"><b>Distinction — S13:</b> To hit distinction, critically evaluate the advantages and disadvantages of your chosen documentation approach (e.g. agile user stories vs a formal requirements table) and explicitly explain when each is appropriate.</div>
+        <div class="distinction-box" style="margin-top:0.5rem"><b>Local standards:</b> Document requirements in strict alignment with your organisation's formatting rules, software standards (e.g. Jira user stories), or regional laws (e.g. GDPR, GDS guidelines). If no standard exists — create one and drive adoption.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Approaches to validation <span class="ksb-tag">K14</span></h3>
+    <p style="font-size:13.5px;color:var(--color-text-secondary);margin-bottom:0.65rem">K14 requires you to explain validation approaches in your theory write-up. Practical validation evidence is covered in S16 (Priority &amp; Management tab).</p>
+    <div style="overflow-x:auto">
+    <table class="compare-table">
+      <thead><tr><th style="width:25%">Technique</th><th style="width:35%">When to use</th><th style="width:20%">Advantage</th><th style="width:20%">Limitation</th></tr></thead>
+      <tbody>
+        <tr><td><b>Stakeholder walkthrough</b></td><td>Complex requirements; non-technical stakeholders; high-stakes sign-off</td><td>Uncovers hidden gaps; builds consensus</td><td>Major time commitment for all</td></tr>
+        <tr><td><b>Prototyping / MVP</b></td><td>Agile sprints; visual confirmation of user journeys</td><td>Makes requirements tangible</td><td>Scope fixation on visuals over data logic</td></tr>
+        <tr><td><b>Inspection</b></td><td>Formal scrutiny; regulatory/compliance contexts</td><td>Rigorous; finds subtle conflicts</td><td>Slow; requires expert reviewers</td></tr>
+        <tr><td><b>Document sign-off</b></td><td>Simple requirements; time-constrained stakeholders</td><td>Fast and low overhead</td><td>"Passive email" risk — stakeholders may not read carefully</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="ibox i-amber" style="margin-top:0.65rem"><b>Approaches to prioritisation (K14):</b> You must also explain prioritisation approaches in your K14 evidence — MoSCoW, RICE, cost-value analysis, weighted scoring. Full detail is on the Priority &amp; Management tab.</div>
+  </div>
+
+  <div class="card">
+    <h3>Requirements quality criteria — the 7 properties</h3>
+    <div class="grid-2">
+      <div class="ibox i-teal" style="margin-bottom:0.3rem"><b>Necessary</b> — linked to a validated business goal</div>
+      <div class="ibox i-teal" style="margin-bottom:0.3rem"><b>Unambiguous</b> — one interpretation only; no vague words</div>
+      <div class="ibox i-teal" style="margin-bottom:0.3rem"><b>Consistent</b> — no conflict with other requirements</div>
+      <div class="ibox i-teal" style="margin-bottom:0.3rem"><b>Complete</b> — nothing missing or assumed</div>
+      <div class="ibox i-teal" style="margin-bottom:0.3rem"><b>Testable</b> — binary pass/fail possible for QA</div>
+      <div class="ibox i-teal" style="margin-bottom:0.3rem"><b>Feasible</b> — technically and financially achievable</div>
+      <div class="ibox i-teal" style="margin-bottom:0.3rem"><b>Traceable</b> — unique ID + source + business goal link</div>
+      <div></div>
+    </div>
+    <div class="grid-2" style="margin-top:0.5rem">
+      <div style="background:#FAECE7;border:0.5px solid #F5C4B3;border-radius:var(--border-radius-md,8px);padding:1rem">
+        <div style="font-size:11px;font-weight:500;color:#712B13;margin-bottom:5px;text-transform:uppercase">Poor requirement</div>
+        <p style="font-size:13.5px;margin-bottom:0;color:#712B13">"The system should quickly upload files for users."</p>
+      </div>
+      <div style="background:#E1F5EE;border:0.5px solid #9FE1CB;border-radius:var(--border-radius-md,8px);padding:1rem">
+        <div style="font-size:11px;font-weight:500;color:#085041;margin-bottom:5px;text-transform:uppercase">Engineered requirement</div>
+        <p style="font-size:13.5px;margin-bottom:0;color:#085041">"The system must allow an authenticated user to upload PDF files up to 10MB, completing within 5 seconds over a standard broadband connection."</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>RTM — requirements traceability matrix anatomy <span class="ksb-tag">S13</span><span class="ksb-tag">S17</span></h3>
+    <div style="overflow-x:auto">
+    <table class="compare-table">
+      <thead><tr><th style="width:30%">Column</th><th style="width:70%">Purpose</th></tr></thead>
+      <tbody>
+        <tr><td><b>Unique ID</b> (e.g. Ops_006)</td><td>Isolates each requirement for change control and audit trail</td></tr>
+        <tr><td><b>Category</b></td><td>Tags item type: Business / User / Functional / Non-Functional</td></tr>
+        <tr><td><b>Business goal</b></td><td>Traces back to corporate objective — proves necessity; prevents gold-plating</td></tr>
+        <tr><td><b>Requirement statement</b></td><td>Clear, active, solution-agnostic definition of the need</td></tr>
+        <tr><td><b>Source</b></td><td>Who or what requested this — establishes stakeholder accountability</td></tr>
+        <tr><td><b>Priority (MoSCoW)</b></td><td>Must / Should / Could / Won't — guides delivery order</td></tr>
+        <tr><td><b>Previous / version</b></td><td>Audit trail — records original text whenever a requirement changes</td></tr>
+        <tr><td><b>Status</b></td><td>Tracks progression: new → in progress → validated → implemented</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="ibox i-coral" style="margin-top:0.65rem"><b>Common fail:</b> Leaving columns blank as the project progresses. An incomplete matrix is useless for change control — every field must be actively maintained throughout the project lifecycle.</div>
+  </div>
+
+  <div class="card">
+    <h3>Non-functional requirement areas <span class="ksb-tag">K16</span></h3>
+    <p style="font-size:13.5px;color:var(--color-text-secondary);margin-bottom:0.5rem">You must identify NFR areas <i>and</i> justify their inclusion in requirements engineering.</p>
+    <div class="nfr-grid">
+      <div class="nfr-pill"><i class="ti ti-speedboat" aria-hidden="true"></i>Performance</div>
+      <div class="nfr-pill"><i class="ti ti-chart-arrows-vertical" aria-hidden="true"></i>Scalability</div>
+      <div class="nfr-pill"><i class="ti ti-shield-check" aria-hidden="true"></i>Security</div>
+      <div class="nfr-pill"><i class="ti ti-server" aria-hidden="true"></i>Availability</div>
+      <div class="nfr-pill"><i class="ti ti-accessible" aria-hidden="true"></i>Usability</div>
+      <div class="nfr-pill"><i class="ti ti-plug-connected" aria-hidden="true"></i>Compatibility</div>
+      <div class="nfr-pill"><i class="ti ti-tool" aria-hidden="true"></i>Maintainability</div>
+      <div class="nfr-pill"><i class="ti ti-checks" aria-hidden="true"></i>Reliability</div>
+    </div>
+    <div class="pro-tip">Stakeholders rarely raise NFRs unprompted — they assume the system will be fast and secure. You must proactively prompt for these metrics in elicitation sessions, otherwise engineering teams build without them.</div>
+    <div class="ibox i-blue"><b>K16 justification principle:</b> "Standard practice" is a weak justification. Instead, link each NFR to a specific strategic risk it mitigates (e.g. a £10m data compliance fine, basket abandonment revenue loss, reputational damage). This makes the development cost justifiable to project sponsors.</div>
+  </div>
+
+  <div class="card">
+    <h3>UX, usability, and accessibility — what's the difference? <span class="ksb-tag">K17</span></h3>
+    <div class="grid-3">
+      <div class="mini-card" style="border-top:2.5px solid #D85A30">
+        <h4>Usability</h4>
+        <p>How easily users can complete tasks. Clear, logical interface layout. Drives adoption and reduces errors.</p>
+        <div style="margin-top:6px"><span class="badge badge-coral">Efficiency</span><span class="badge badge-coral">Effectiveness</span></div>
+      </div>
+      <div class="mini-card" style="border-top:2.5px solid #1D9E75">
+        <h4>Accessibility</h4>
+        <p>Ensuring all users — including those with disabilities — can access and use the system. WCAG 2.2 AA standard.</p>
+        <div style="margin-top:6px"><span class="badge badge-teal">Compliance</span><span class="badge badge-teal">Ethics</span></div>
+      </div>
+      <div class="mini-card" style="border-top:2.5px solid #534AB7">
+        <h4>User experience (UX)</h4>
+        <p>All aspects of interaction — feelings, perceptions, overall satisfaction. Drives sustained engagement.</p>
+        <div style="margin-top:6px"><span class="badge badge-purple">Emotion</span><span class="badge badge-purple">Adoption</span></div>
+      </div>
+    </div>
+    <div class="ibox i-amber" style="margin-top:0.65rem"><b>Afterthought fallacy:</b> Accessibility is not a cosmetic fix added before launch. Failing to build it into the initial requirements matrix means rebuilding structural code later — exponentially more expensive.</div>
+  </div>
+
+  <div class="card">
+    <h3>S14 — Analysing requirements to remove conflict <span class="ksb-tag">S14</span></h3>
+    <div class="pipeline">
+      <div class="pipe-step" style="font-size:10px">Input &amp; categorise</div>
+      <div class="pipe-step teal" style="font-size:10px">Detect duplicates</div>
+      <div class="pipe-step purple" style="font-size:10px">Spot conflicts</div>
+      <div class="pipe-step amber" style="font-size:10px">Remove overlaps</div>
+      <div class="pipe-step blue" style="font-size:10px">Refined output</div>
+    </div>
+    <div class="ibox i-coral"><b>Common fail:</b> Apprentices talk about S14 hypothetically. If there was no duplication in your project, explicitly explain how you checked and confirmed that — don't simply skip this step.</div>
+    <div class="distinction-box"><b>Distinction:</b> Preserve "before and after" evidence — the raw elicitation log showing conflicts or duplicates, a change/analysis log showing how you resolved them, and the final cleaned requirements matrix. This three-part artefact set is strong S14 evidence.</div>
+  </div>
+
+  <!-- EVIDENCE BLOCK — Documenting -->
+  <div class="evidence-block">
+    <h3><i class="ti ti-clipboard-check" aria-hidden="true"></i> Portfolio evidence — what to include</h3>
+
+    <div class="ev-ksb">
+      <div class="ev-ksb-head"><span class="ksb-tag">K14</span><span style="font-size:13px;font-weight:500;color:var(--color-text-primary)">Categorise, validate &amp; prioritise — knowledge</span></div>
+      <ul class="checklist">
+        <li>Explain approaches to categorise requirements (business / user / system — functional / non-functional)</li>
+        <li>Explain approaches to validate requirements (walkthroughs, reviews, prototyping, sign-off)</li>
+        <li>Explain approaches to prioritise requirements (MoSCoW, ranking, cost, risk)</li>
+      </ul>
+      <div class="ibox i-amber" style="margin-top:0.5rem"><b>Key note:</b> K14 uses the word "and" — you must address all three areas (categorise, validate, prioritise), not just one or two. This is a common reason for assessors requesting more depth.</div>
+    </div>
+
+    <div class="ev-ksb">
+      <div class="ev-ksb-head"><span class="ksb-tag">K16</span><span style="font-size:13px;font-weight:500;color:var(--color-text-primary)">Non-functional requirements — knowledge</span></div>
+      <ul class="checklist">
+        <li>Define functional and non-functional requirements and explain the difference</li>
+        <li>Identify a range of NFR areas with examples from your own work</li>
+        <li>Justify their inclusion: if NFRs are not essential for the system to function, why must they be included?</li>
+      </ul>
+      <div class="pro-tip" style="margin-top:0.5rem">Link NFRs to the business risk they mitigate — not "it's standard practice." Assessors want to see why each NFR matters strategically to the organisation.</div>
+    </div>
+
+    <div class="ev-ksb">
+      <div class="ev-ksb-head"><span class="ksb-tag">K17</span><span style="font-size:13px;font-weight:500;color:var(--color-text-primary)">UX, accessibility &amp; usability — knowledge</span></div>
+      <ul class="checklist">
+        <li>Explain the relevance and importance of UX, accessibility, and usability in digital solution design</li>
+        <li>Clarify how the three concepts differ from each other</li>
+        <li>Describe a scenario where insufficient accessibility or usability consideration had consequences</li>
+      </ul>
+    </div>
+
+    <div class="ev-ksb">
+      <div class="ev-ksb-head"><span class="ksb-tag">S13</span><span style="font-size:13px;font-weight:500;color:var(--color-text-primary)">Documenting requirements — skill</span></div>
+      <ul class="checklist">
+        <li>Document functional and non-functional requirements in line with your local organisational standards</li>
+        <li>Explain why you used your chosen documentation technique for your specific project</li>
+        <li>Evaluate the advantages and disadvantages of your chosen documentation approach</li>
+        <li>Explain situations appropriate for different documentation approaches</li>
+        <li>Contribute to the enhancement, maintenance, or adoption of local documentation standards</li>
+      </ul>
+      <div class="distinction-box" style="margin-top:0.5rem"><b>Distinction — S13:</b> Pass candidates correctly follow existing templates. Distinction requires you to actively improve tools for others — update a legacy template, add a compliance checklist, run a peer training session, or drive adoption across your team. Document what you changed and who benefited.</div>
+    </div>
+
+    <div class="ev-ksb">
+      <div class="ev-ksb-head"><span class="ksb-tag">S14</span><span style="font-size:13px;font-weight:500;color:var(--color-text-primary)">Analysing requirements — skill</span></div>
+      <ul class="checklist">
+        <li>Outline how you independently analysed requirements for conflict, overlap, and duplication</li>
+        <li>Describe how you resolved conflict and overlap with stakeholders</li>
+        <li>Include project artefacts showing requirements before and after analysis</li>
+        <li>If no duplication existed, explain how you checked and confirmed this</li>
+      </ul>
+      <div class="pro-tip" style="margin-top:0.5rem">A common fail is treating S14 as hypothetical. Even if your requirements were clean, show the analysis process you used to verify that — a "conflict log" or annotated requirements document showing your review notes works well.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== PRIORITISATION & MANAGEMENT ===== -->
+<div id="tab-prioritisation" class="tab-panel">
+
+  <div class="card">
+    <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.75rem">
+      <h2 style="margin-bottom:0">Block 3: Prioritisation &amp; management</h2>
+      <span class="ksb-tag">K14</span><span class="ksb-tag">K15</span><span class="ksb-tag">S15</span><span class="ksb-tag">S16</span><span class="ksb-tag">S17</span>
+    </div>
+    <div class="ibox i-purple">Without prioritisation, teams treat all requests as equally important. When time runs short, developers build the easiest features rather than the most critical — resulting in an over-budget deployment that misses core business goals.</div>
+  </div>
+
+  <div class="card">
+    <h3>Requirements validation — S16 <span class="ksb-tag">S16</span></h3>
+    <p style="font-size:13.5px;margin-bottom:0.65rem">Validation is not about getting your internal project team to agree. It is about obtaining formal, authorised sign-off from the stakeholders you elicited those requirements from.</p>
+    <div class="ibox i-blue"><b>Verification vs validation:</b> Verification checks if requirements are written correctly (are they testable, clear?). Validation checks if they are the right requirements (do they actually solve the stakeholder's problem?).</div>
+    <div style="overflow-x:auto">
+    <table class="compare-table">
+      <thead><tr><th style="width:22%">Technique</th><th style="width:32%">Best for</th><th style="width:23%">Advantage</th><th style="width:23%">Limitation</th></tr></thead>
+      <tbody>
+        <tr><td><b>Stakeholder walkthrough</b></td><td>Complex requirements; non-technical stakeholders; high-stakes sign-off</td><td>Uncovers hidden gaps; drives consensus</td><td>Significant time commitment for all parties</td></tr>
+        <tr><td><b>Prototyping / MVP</b></td><td>Agile sprints; visual confirmation; user journey validation</td><td>Makes requirements tangible; great for non-technical audiences</td><td>Risk of scope fixation on visuals rather than data logic</td></tr>
+        <tr><td><b>Inspection</b></td><td>Formal scrutiny; regulatory/compliance contexts</td><td>Rigorous; catches subtle ambiguities</td><td>Slow; requires expert reviewers</td></tr>
+        <tr><td><b>Document sign-off</b></td><td>Simple, well-understood requirements; time-constrained stakeholders</td><td>Fast and low overhead</td><td>"Passive email" risk — stakeholders may not read carefully</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="distinction-box" style="margin-top:0.65rem"><b>Distinction — reflection:</b> For K14, explain how you would modify your validation approach in the future. If a document sign-off led to confusion during development, would you switch to a live walkthrough next time? Demonstrating this lessons-learned thinking is what separates pass from distinction.</div>
+    <div class="ibox i-amber" style="margin-top:0.5rem"><b>The 4-step validation pathway:</b> 1) Document → 2) Playback → 3) Refine → 4) Secure sign-off. Your S16 portfolio must show evidence of all four stages, not just the final signed document.</div>
+  </div>
+
+  <div class="card">
+    <h3>MoSCoW prioritisation framework <span class="ksb-tag">S15</span></h3>
+    <div class="grid-2">
+      <div>
+        <div class="stage-card st-coral"><b>M — Must have</b><br><span style="font-size:12.5px">Critical path. System cannot function without this. Non-negotiable for the current phase.</span></div>
+        <div class="stage-card st-teal"><b>S — Should have</b><br><span style="font-size:12.5px">Important but not vital for MVP. Defer if resources constrained.</span></div>
+        <div class="stage-card st-purple"><b>C — Could have</b><br><span style="font-size:12.5px">Nice to have. Include only if time and budget permit after Musts and Shoulds are delivered.</span></div>
+        <div class="stage-card st-amber"><b>W — Won't have</b><br><span style="font-size:12.5px">Explicitly excluded from this phase. Captured and deferred for future consideration.</span></div>
+      </div>
+      <div>
+        <div class="ibox i-coral"><b>"Everything is a Must" trap:</b> Stakeholders naturally classify all requests as Must. Counter this by capping Must requirements at 60% of total project effort before the session begins — agree this rule upfront.</div>
+        <div class="ibox i-amber" style="margin-top:0.5rem"><b>Common fail:</b> Showing a MoSCoW column in the table without explaining the decision-making process and rules used to assign each level. Assessors want the methodology and story, not just the grid.</div>
+        <div class="pro-tip" style="margin-top:0.5rem">Include technical developers in prioritisation sessions so the team can accurately score effort and complexity in real time — preventing business stakeholders from prioritising technically infeasible features.</div>
+      </div>
+    </div>
+    <div class="distinction-box" style="margin-top:0.5rem"><b>Distinction — S15:</b> Compare at least 3 prioritisation methods (MoSCoW, RICE, cost-value analysis, weighted scoring) and justify why your chosen method fit the specific project context. Document who held sign-off authority and what objective rules defined a "Must" vs a "Should."</div>
+  </div>
+
+  <div class="card">
+    <h3>Requirements traceability <span class="ksb-tag">K15</span><span class="ksb-tag">S17</span></h3>
+    <div class="grid-2">
+      <div style="background:#E1F5EE;border:0.5px solid #9FE1CB;border-radius:var(--border-radius-md,8px);padding:1rem">
+        <div style="font-size:11px;font-weight:500;color:#085041;margin-bottom:7px;text-transform:uppercase;letter-spacing:0.06em">Horizontal traceability</div>
+        <p style="font-size:13.5px;line-height:1.6;color:#04342C"><b>Backwards:</b> Trace a requirement back to its original stakeholder source or business goal. Vital for clarification and conflict resolution mid-project.</p>
+        <p style="font-size:13.5px;line-height:1.6;color:#04342C;margin-top:5px"><b>Forwards:</b> Track a requirement through development, implementation, and testing to prove it has been resolved satisfactorily.</p>
+      </div>
+      <div style="background:#EEEDFE;border:0.5px solid #AFA9EC;border-radius:var(--border-radius-md,8px);padding:1rem">
+        <div style="font-size:11px;font-weight:500;color:#26215C;margin-bottom:7px;text-transform:uppercase;letter-spacing:0.06em">Vertical traceability</div>
+        <p style="font-size:13.5px;line-height:1.6;color:#26215C">Traces a requirement up or down the hierarchy to ensure every detailed functional step still aligns with the overarching business strategy, objectives, and mission.</p>
+        <p style="font-size:13.5px;line-height:1.6;color:#26215C;margin-top:5px">If a requirement changes: "Does this modification still help the business achieve what it originally set out to do?"</p>
+      </div>
+    </div>
+    <div class="ibox i-coral" style="margin-top:0.65rem"><b>Gold-plating risk:</b> If a developer adds an unrequested feature because it is technically easy, it fails vertical traceability — it cannot be mapped to any validated stakeholder or business objective, wasting development capital.</div>
+  </div>
+
+  <div class="card">
+    <h3>The 5-step change control workflow <span class="ksb-tag">K15</span></h3>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-dot"></div><h4>1 — Gather information</h4><p>Understand the exact purpose and need behind the change request. Is it genuinely worth the analytical effort?</p></div>
+      <div class="tl-item"><div class="tl-dot"></div><h4>2 — Determine scope</h4><p>Is the change inside or outside the agreed project boundary? Going outside without control inflates budget and causes delays.</p></div>
+      <div class="tl-item"><div class="tl-dot"></div><h4>3 — Assess priority</h4><p>Does this stem from a genuine operational need? Use predefined guidelines to navigate conflicting stakeholder opinions.</p></div>
+      <div class="tl-item"><div class="tl-dot"></div><h4>4 — Approve or reject</h4><p>Route through your organisation's formal approval pathways. No informal verbal agreements — all changes need documented sign-off.</p></div>
+      <div class="tl-item" style="margin-bottom:0"><div class="tl-dot"></div><h4>5 — Action</h4><p>If approved, update all delivery artefacts: plans, schedules, business process documentation, and the central requirements matrix.</p></div>
+    </div>
+    <div class="ibox i-amber" style="margin-top:0.65rem"><b>Agile myth:</b> Working in Agile does not mean anyone can change anything without governance. Agile still requires changes to be evaluated against sprint velocity and business value before implementation.</div>
+  </div>
+
+  <!-- EVIDENCE BLOCK — Priority & Management -->
+  <div class="evidence-block">
+    <h3><i class="ti ti-clipboard-check" aria-hidden="true"></i> Portfolio evidence — what to include</h3>
+
+    <div class="ev-ksb">
+      <div class="ev-ksb-head"><span class="ksb-tag">K15</span><span style="font-size:13px;font-weight:500;color:var(--color-text-primary)">Requirements management including change control — knowledge</span></div>
+      <ul class="checklist">
+        <li>Describe approaches to requirements management, including change control processes</li>
+        <li>Explain the relevance and importance of managing requirements throughout a project</li>
+        <li>Describe how change control is conducted: capturing, monitoring, and approving changes</li>
+        <li>Explain the consequences of not adequately managing requirements</li>
+      </ul>
+      <div class="pro-tip" style="margin-top:0.5rem">Blend your traceability matrix evidence (S17) directly with your change control story. Show how unique requirement IDs, documented owners, and version histories empower intelligent impact analysis when a stakeholder requests a late-stage change.</div>
+    </div>
+
+    <div class="ev-ksb">
+      <div class="ev-ksb-head"><span class="ksb-tag">S15</span><span style="font-size:13px;font-weight:500;color:var(--color-text-primary)">Prioritising requirements — skill</span></div>
+      <ul class="checklist">
+        <li>Demonstrate and justify prioritising requirements using an appropriate approach</li>
+        <li>Explain what factors influenced the process (time, cost, risk)</li>
+        <li>Explain the setting: who was involved, how it played out, what you learned</li>
+        <li>Show how prioritisation affected the overall project outcome</li>
+        <li>Describe how you resolved conflicts or disagreements during prioritisation</li>
+      </ul>
+      <div class="distinction-box" style="margin-top:0.5rem"><b>Distinction:</b> Don't just show a MoSCoW table. Show the methodology — what rules were set beforehand, who held sign-off authority, how you handled "everything is a Must", and how you would use objective data weighting (RICE) to counter that pressure.</div>
+    </div>
+
+    <div class="ev-ksb">
+      <div class="ev-ksb-head"><span class="ksb-tag">S16</span><span style="font-size:13px;font-weight:500;color:var(--color-text-primary)">Validating requirements — skill</span></div>
+      <ul class="checklist">
+        <li>Provide evidence that you validated requirements with your actual stakeholders (not just your project team)</li>
+        <li>Show the technique you used and justify why you chose it over alternatives</li>
+        <li>Provide proof: sign-off emails, meeting screenshots, annotated wireframes, walkthrough notes</li>
+        <li>Reflect on what worked well and what you would do differently next time</li>
+      </ul>
+      <div class="pro-tip" style="margin-top:0.5rem">Validation is not about getting your internal team to agree with you. It is about formal sign-off from the stakeholders you originally elicited requirements from. A "looks good" reply to a 50-page email is not adequate validation evidence.</div>
+    </div>
+
+    <div class="ev-ksb">
+      <div class="ev-ksb-head"><span class="ksb-tag">S17</span><span style="font-size:13px;font-weight:500;color:var(--color-text-primary)">Requirements traceability — skill</span></div>
+      <ul class="checklist">
+        <li>Evidence the establishment of requirements traceability in your project documentation</li>
+        <li>Annotate or explain your traceability matrix: what it shows, why it was beneficial</li>
+        <li>Provide an artefact or screenshot of your RTM and talk through the key columns</li>
+        <li>Use the terms horizontal and vertical traceability to elevate your portfolio language</li>
+      </ul>
+      <div class="pro-tip" style="margin-top:0.5rem">Note: you do not have to manage every requirement across an entire multi-year project to satisfy S17. You need to demonstrate that you supported the establishment of a tracing system — showing how you set it up and why each column matters is sufficient.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== ACTIVITIES ===== -->
+<div id="tab-activities" class="tab-panel">
+
+  <div class="card">
+    <h2>In-session activities</h2>
+    <p style="font-size:14px;color:var(--color-text-secondary)">Complete these during the live session. Select your answer for MCQs, then check the feedback. Written activities have a reveal button for the model answer.</p>
+  </div>
+
+  <div class="q-activity">
+    <div class="q-number">Activity 1 · Bloom's: Understand · K12</div>
+    <div class="q-text">Why did the industry shift its terminology from "Requirements Gathering" to "Requirements Elicitation"?</div>
+    <div class="q-options">
+      <div class="q-opt" onclick="checkMCQ(this,'a1',false)">A. Because "gathering" is too informal a term for professional practice</div>
+      <div class="q-opt" onclick="checkMCQ(this,'a1',false)">B. Because technology has made gathering data automated, leaving only elicitation to humans</div>
+      <div class="q-opt" onclick="checkMCQ(this,'a1',true)">C. Because requirements are rarely fully formed — they must be carefully drawn out through active investigation</div>
+      <div class="q-opt" onclick="checkMCQ(this,'a1',false)">D. Because elicitation is a legal requirement under UK standards</div>
+    </div>
+    <div class="q-feedback fb-right" id="fb-a1-right">Correct. "Gathering" incorrectly implies requirements are already waiting to be picked up. In reality, stakeholders rarely know exactly what they need or can express it clearly. Elicitation recognises that requirements must be drawn out through active analysis, questioning, and professional investigation.</div>
+    <div class="q-feedback fb-wrong" id="fb-a1-wrong">Not quite. The key issue is that requirements are not pre-formed and waiting to be collected. Stakeholders rarely articulate their true needs clearly — they must be actively elicited through professional investigation techniques.</div>
+  </div>
+
+  <div class="q-activity">
+    <div class="q-number">Activity 2 · Bloom's: Apply · K13</div>
+    <div class="q-text">A stakeholder says: "We need to hire three extra service staff because our checkout queues are too slow." What should you do first as a business analyst?</div>
+    <div class="q-options">
+      <div class="q-opt" onclick="checkMCQ(this,'a2',false)">A. Document the requirement: "Hire 3 additional service staff to reduce checkout time"</div>
+      <div class="q-opt" onclick="checkMCQ(this,'a2',false)">B. Escalate to the project sponsor to approve the hiring budget</div>
+      <div class="q-opt" onclick="checkMCQ(this,'a2',true)">C. Ask why the queues are slow — investigate the root cause before accepting this solution descriptor</div>
+      <div class="q-opt" onclick="checkMCQ(this,'a2',false)">D. Note this as a business requirement and move to documenting functional requirements</div>
+    </div>
+    <div class="q-feedback fb-right" id="fb-a2-right">Correct. The stakeholder has given a solution descriptor ("hire staff"), not a requirement. The root cause may be slow point-of-sale software. The elicited requirement might be: "The order logging process must consistently process and track customer purchases in under 30 seconds." This opens up far better, cheaper solutions than simply adding headcount.</div>
+    <div class="q-feedback fb-wrong" id="fb-a2-wrong">This falls into the solution descriptor trap. The stakeholder has proposed a solution before the root cause has been investigated. Your job is to uncover why queues are slow — it might be a software issue, not a staffing one.</div>
+  </div>
+
+  <div class="q-activity">
+    <div class="q-number">Activity 3 · Bloom's: Analyze · K12 &amp; S12</div>
+    <div class="q-text">A BA needs to map an undocumented legacy system used by a highly time-constrained operations team. Which combination of techniques would be most effective?</div>
+    <div class="q-options">
+      <div class="q-opt" onclick="checkMCQ(this,'a3',false)">A. Large-scale survey + focus group + prototyping</div>
+      <div class="q-opt" onclick="checkMCQ(this,'a3',true)">B. Document analysis + observation/shadowing + targeted 1-on-1 interview with a system super-user</div>
+      <div class="q-opt" onclick="checkMCQ(this,'a3',false)">C. Three rounds of workshops with all stakeholders simultaneously</div>
+      <div class="q-opt" onclick="checkMCQ(this,'a3',false)">D. Prototyping + survey + document sign-off</div>
+    </div>
+    <div class="q-feedback fb-right" id="fb-a3-right">Correct. Document analysis establishes the baseline without interrupting staff. Shadowing during peak hours catches actual workarounds. A targeted 1-on-1 interview with a super-user clarifies specific system rules. This combination maximises discovery depth while respecting tight stakeholder availability.</div>
+    <div class="q-feedback fb-wrong" id="fb-a3-wrong">Consider the constraints — the team is highly time-constrained and the system is undocumented. You need techniques that minimise stakeholder disruption while maximising depth of discovery. Which combination achieves both?</div>
+  </div>
+
+  <div class="q-activity">
+    <div class="q-number">Activity 4 · Bloom's: Apply · K14 &amp; S13 (written)</div>
+    <div class="q-text">Rewrite this poor requirement so it is clear, unambiguous, and testable:<br><br><span style="font-style:italic;color:var(--color-text-secondary)">"The platform must be highly reliable."</span></div>
+    <div style="margin-top:0.65rem;font-size:13px;color:var(--color-text-secondary)">Think about: what metric makes reliability testable? What time period applies? What recovery time is acceptable?</div>
+    <button class="reveal-btn" onclick="toggleReveal('rev4')">Reveal model answer</button>
+    <div class="reveal-content" id="rev4">"The system must maintain 99.95% operational availability during core business hours (08:00–18:00, Monday to Friday), with automated recovery protocols completing within 15 minutes of an outage."<br><br><b>Why this works:</b> Percentage availability is measurable, the time period is specified, and recovery time is quantified — a QA engineer can now design a binary pass/fail test case.</div>
+  </div>
+
+  <div class="q-activity">
+    <div class="q-number">Activity 5 · Bloom's: Analyze · K16</div>
+    <div class="q-text">Classify this requirement and justify which NFR category it belongs to:<br><br><span style="font-style:italic;color:var(--color-text-secondary)">"The portal must restrict access to sensitive citizen case histories using Role-Based Access Control (RBAC), verifying identity via a secure centralised gateway."</span></div>
+    <div class="q-options">
+      <div class="q-opt" onclick="checkMCQ(this,'a5',false)">A. Functional system requirement — it describes what the system must do</div>
+      <div class="q-opt" onclick="checkMCQ(this,'a5',true)">B. Non-functional system requirement (security) — it defines an operational constraint around how well data is protected</div>
+      <div class="q-opt" onclick="checkMCQ(this,'a5',false)">C. User requirement — it describes what the end user needs</div>
+      <div class="q-opt" onclick="checkMCQ(this,'a5',false)">D. Business requirement — it relates to a regulatory business goal</div>
+    </div>
+    <div class="q-feedback fb-right" id="fb-a5-right">Correct. This is a non-functional system requirement (security category). It defines an operational constraint — how well data is protected — rather than a direct interactive user feature or action. The justification is risk mitigation and statutory compliance, protecting against unauthorised access under national privacy legislation.</div>
+    <div class="q-feedback fb-wrong" id="fb-a5-wrong">Not quite. While it has elements of what the system must do, the primary focus is on the quality property of security — how well the system protects data. This makes it a non-functional requirement in the security category.</div>
+  </div>
+
+  <div class="q-activity">
+    <div class="q-number">Activity 6 · Bloom's: Analyze · S14 (written)</div>
+    <div class="q-text">You receive two requirements from different stakeholders:<br><br><span style="color:#712B13">Source A:</span> "The sales dashboard must update performance figures every 5 seconds."<br><span style="color:#085041">Source B:</span> "The database must only sync records overnight at 2 AM to minimise server strain."<br><br>How would you apply S14 to resolve this conflict?</div>
+    <button class="reveal-btn" onclick="toggleReveal('rev6')">Reveal model answer</button>
+    <div class="reveal-content" id="rev6">Flag this as a critical structural conflict during the analysis phase. The underlying data needs differ: Source A requires timely data visibility; Source B requires operational server stability. Bring both parties together to negotiate a middle-ground — such as a decoupled caching layer or hourly mini-batch processing — and convert the conflicting entries into a single, cohesive, technically feasible requirement. Document the original conflicting versions, the resolution process, and the final agreed requirement as your S14 evidence.</div>
+  </div>
+
+  <div class="q-activity">
+    <div class="q-number">Activity 7 · Bloom's: Evaluate · S16</div>
+    <div class="q-text">A project team proposes skipping formal validation and moving straight from analysis to development, arguing that "stakeholders already told us what they wanted during elicitation." Evaluate the risk.</div>
+    <div class="q-options">
+      <div class="q-opt" onclick="checkMCQ(this,'a7',false)">A. Low risk — elicitation captured everything needed</div>
+      <div class="q-opt" onclick="checkMCQ(this,'a7',false)">B. Medium risk — some gaps may emerge but can be fixed during testing</div>
+      <div class="q-opt" onclick="checkMCQ(this,'a7',true)">C. High risk — analysis may have introduced misinterpretations that only validation can catch</div>
+      <div class="q-opt" onclick="checkMCQ(this,'a7',false)">D. No risk if the elicitation was well documented</div>
+    </div>
+    <div class="q-feedback fb-right" id="fb-a7-right">Correct. This is high risk. Elicitation captures raw, often conflicting desires. Analysis cleans and structures those inputs into technical specifications, which may introduce misinterpretations. Skipping validation means you miss the chance to confirm the restructured requirements still match actual stakeholder needs. You may deliver a system that works technically but fails operationally.</div>
+    <div class="q-feedback fb-wrong" id="fb-a7-wrong">The key risk is that analysis can introduce misinterpretations. Raw elicitation outputs are messy and conflicting — after analysis structures them, stakeholders must confirm the structured version still matches what they originally needed.</div>
+  </div>
+
+  <div class="q-activity">
+    <div class="q-number">Activity 8 · Bloom's: Evaluate · S13 distinction</div>
+    <div class="q-text">An analyst creates an excellent new requirements template for their project but does not archive the process or share it with the team. Does this meet the distinction standard for S13?</div>
+    <div class="q-options">
+      <div class="q-opt" onclick="checkMCQ(this,'a8',false)">A. Yes — creating a high-quality template is sufficient for distinction</div>
+      <div class="q-opt" onclick="checkMCQ(this,'a8',true)">B. No — distinction requires evidence of contributing to local standards across the wider organisation, not just one individual project</div>
+      <div class="q-opt" onclick="checkMCQ(this,'a8',false)">C. Yes — the template itself is the evidence assessors look for</div>
+      <div class="q-opt" onclick="checkMCQ(this,'a8',false)">D. Partially — it meets distinction if the template is very detailed</div>
+    </div>
+    <div class="q-feedback fb-right" id="fb-a8-right">Correct. Creating a template satisfies individual compliance (pass level), but completely fails the distinction standard. Distinction requires active evidence of contributing to the enhancement, maintenance, or adoption of local standards across the wider organisation. Without archiving, coaching peers, or running training to drive adoption, the artefact remains isolated and cannot be repeated for future projects.</div>
+    <div class="q-feedback fb-wrong" id="fb-a8-wrong">Think about what "contributing to local standards" means organisationally. A template used by one person on one project has no lasting impact on the organisation. Distinction requires evidence that your work elevated standards for others.</div>
+  </div>
+
+  <div class="card">
+    <h2>End-of-session reflection (5 minutes)</h2>
+    <p style="font-size:14px;color:var(--color-text-secondary);margin-bottom:0.75rem">Answer these individually before the close of the session:</p>
+    <div style="background:var(--color-background-secondary,#f9f9f9);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md,8px);padding:1rem;margin-bottom:0.65rem">
+      <p style="font-size:14px;font-weight:500;margin-bottom:3px;color:var(--color-text-primary)">1. Which of the four lifecycle stages is most vulnerable in your current organisation, and why?</p>
+      <p style="font-size:13px;color:var(--color-text-secondary)">Be specific — name a recent project and the stage where things went wrong.</p>
+    </div>
+    <div style="background:var(--color-background-secondary,#f9f9f9);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md,8px);padding:1rem;margin-bottom:0.65rem">
+      <p style="font-size:14px;font-weight:500;margin-bottom:3px;color:var(--color-text-primary)">2. What one concrete portfolio artefact can you produce in the next two weeks that maps to both K12 and S12?</p>
+      <p style="font-size:13px;color:var(--color-text-secondary)">Think: elicitation plan, stakeholder matrix, technique comparison table with a real project example.</p>
+    </div>
+    <div style="background:var(--color-background-secondary,#f9f9f9);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md,8px);padding:1rem">
+      <p style="font-size:14px;font-weight:500;margin-bottom:3px;color:var(--color-text-primary)">3. Name one thing you could do to move from pass to distinction in your documentation standards.</p>
+      <p style="font-size:13px;color:var(--color-text-secondary)">E.g. add a WCAG checklist to an existing template and run a 30-minute team walkthrough of it.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== SOLUTIONS ===== -->
+<div id="tab-solutions" class="tab-panel">
+
+  <div class="card">
+    <h2>Activity solutions &amp; model answers</h2>
+    <p style="font-size:14px;color:var(--color-text-secondary)">Use these to review your answers after each activity block. Written activity answers are expanded below — check the depth and quality of your own responses.</p>
+  </div>
+
+  <div class="card">
+    <h3>MCQ activities — quick reference</h3>
+    <div style="overflow-x:auto">
+    <table class="compare-table">
+      <thead><tr><th style="width:12%">Activity</th><th style="width:55%">Correct answer</th><th style="width:18%">KSB</th><th style="width:15%">Bloom's</th></tr></thead>
+      <tbody>
+        <tr><td>Activity 1</td><td>C — Requirements must be drawn out through active investigation</td><td>K12</td><td>Understand</td></tr>
+        <tr><td>Activity 2</td><td>C — Investigate root cause before accepting solution descriptor</td><td>K13</td><td>Apply</td></tr>
+        <tr><td>Activity 3</td><td>B — Document analysis + shadowing + targeted interview</td><td>K12, S12</td><td>Analyze</td></tr>
+        <tr><td>Activity 5</td><td>B — Non-functional system requirement (security)</td><td>K16</td><td>Analyze</td></tr>
+        <tr><td>Activity 7</td><td>C — High risk: analysis may introduce misinterpretations</td><td>S16</td><td>Evaluate</td></tr>
+        <tr><td>Activity 8</td><td>B — Distinction requires organisational contribution, not just individual work</td><td>S13</td><td>Evaluate</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Activity 4 — Model answer</h3>
+    <div style="background:#FAECE7;border:0.5px solid #F5C4B3;border-radius:var(--border-radius-md,8px);padding:0.85rem;margin-bottom:0.65rem;font-style:italic;font-size:13.5px;color:#712B13">"The platform must be highly reliable."</div>
+    <div class="ibox i-teal"><b>Engineered requirement:</b> "The system must maintain 99.95% operational availability during core business hours (08:00–18:00, Monday to Friday), with automated recovery protocols completing within 15 minutes of an outage."<br><br><b>NFR justification (K16):</b> Operational continuity — ensuring unhindered business processing and preventing transactional revenue loss during peak operational cycles. This ties the requirement to a specific financial risk, making the development cost justifiable to project sponsors.</div>
+  </div>
+
+  <div class="card">
+    <h3>Activity 6 — Model answer</h3>
+    <div class="ibox i-teal">
+      <b>Step 1 — Flag the conflict:</b> Log this as a structural conflict during the S14 analysis phase. Both requirements cannot coexist without architectural resolution.<br><br>
+      <b>Step 2 — Analyse underlying needs:</b> Source A needs timely data visibility for operational decision-making. Source B needs server stability and resource efficiency during peak periods.<br><br>
+      <b>Step 3 — Negotiate a resolution:</b> Bring both parties together and propose a decoupled caching layer or hourly mini-batch sync — delivering near-real-time data visibility without overloading the database.<br><br>
+      <b>Step 4 — Document:</b> Record the original conflicting entries, the analysis process, the meeting outcome, and the final merged requirement. This before-and-after set is your S14 portfolio evidence.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Discussion question answers</h3>
+    <div style="margin-bottom:1rem">
+      <div class="slabel">Q: Why do most software defects originate in requirements rather than coding?</div>
+      <div class="ibox i-teal">Developers build exactly what is documented. If the document contains logical flaws, missing rules, ambiguities, or wrong assumptions, the developer constructs a technically flawless implementation of the wrong feature. A perfect build of the wrong requirement is still a failure.</div>
+    </div>
+    <div style="margin-bottom:1rem">
+      <div class="slabel">Q: Why dedicate separate modules to Documenting vs Prioritisation &amp; Management?</div>
+      <div class="ibox i-teal">Documenting establishes the exact baseline capabilities and performance metrics of the required state. Prioritisation and Management protect that baseline against scope creep by controlling how requirements shift under real-world delivery constraints. Both are essential but serve fundamentally different governance purposes.</div>
+    </div>
+    <div style="margin-bottom:1rem">
+      <div class="slabel">Q: Can a system have high usability but poor UX?</div>
+      <div class="ibox i-teal">Yes. A corporate expenses form may be efficient (high usability — zero errors, fast task completion) but leave the user feeling cold and frustrated (poor UX). Usability is about effectiveness and efficiency; UX covers all subjective feelings and perceptions about the entire interaction.</div>
+    </div>
+    <div>
+      <div class="slabel">Q: Why is "risk mitigation" a stronger NFR justification than "it's standard practice"?</div>
+      <div class="ibox i-teal">"Standard practice" is subjective and difficult to fund. Proving that a security requirement mitigates a specific quantifiable risk — such as a £10m data compliance fine or a catastrophic database breach — ties the requirement directly to financial and regulatory protection, making the development cost justifiable to project sponsors.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Portfolio evidence checklist — by KSB</h3>
+    <div class="grid-2">
+      <div>
+        <div class="slabel" style="margin-bottom:0.35rem">K12 &amp; S12 — Elicitation</div>
+        <ul class="checklist">
+          <li>Minimum 3 techniques with pros and cons</li>
+          <li>Justification for chosen technique vs alternatives</li>
+          <li>Named stakeholders involved and rationale</li>
+          <li>Direct evidence: agenda, question list, minutes</li>
+          <li>Summary of business/user needs identified</li>
+        </ul>
+        <div class="slabel" style="margin-top:1rem;margin-bottom:0.35rem">K13 — Requirements vs solutions</div>
+        <ul class="checklist">
+          <li>Clear explanation of the difference</li>
+          <li>Contrasting examples with real project context</li>
+          <li>Outcomes comparison: what would differ?</li>
+        </ul>
+        <div class="slabel" style="margin-top:1rem;margin-bottom:0.35rem">K15 — Change control</div>
+        <ul class="checklist">
+          <li>Approaches to requirements management described</li>
+          <li>Change control process explained with real example</li>
+          <li>Consequences of not managing requirements addressed</li>
+        </ul>
+      </div>
+      <div>
+        <div class="slabel" style="margin-bottom:0.35rem">K14 &amp; S13 — Documenting</div>
+        <ul class="checklist">
+          <li>All three areas: categorise, validate, prioritise</li>
+          <li>Functional and non-functional requirements documented</li>
+          <li>Aligned to local organisational standards</li>
+          <li>Advantages and disadvantages of approach evaluated</li>
+          <li>Evidence of contributing to local standards</li>
+        </ul>
+        <div class="slabel" style="margin-top:1rem;margin-bottom:0.35rem">S14, S15, S16, S17</div>
+        <ul class="checklist">
+          <li>S14: Before/after evidence of conflict resolution</li>
+          <li>S15: MoSCoW table + decision-making story + sign-off rules</li>
+          <li>S16: Validation technique justified + 4-step pathway evidence</li>
+          <li>S17: RTM annotated + horizontal/vertical traceability explained</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="border:1.5px solid #D85A30;text-align:center;padding:2rem">
+    <i class="ti ti-message-circle" style="font-size:28px;color:#D85A30;margin-bottom:0.5rem" aria-hidden="true"></i>
+    <h2 style="margin-bottom:0.35rem">Share your feedback</h2>
+    <p style="font-size:14px;color:var(--color-text-secondary);margin-bottom:1.25rem">Help us improve today's masterclass. Your feedback goes directly to your coach — it only takes 2 minutes.</p>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfelXv0MQOC7fWGQYgRgDOQGjW0yvwksXFMsloOOUA5v8yhUw/viewform?usp=sharing&ouid=113514810576365038589" target="_blank" class="feedback-link-btn">
+      <i class="ti ti-external-link" aria-hidden="true"></i>
+      Complete the feedback survey
+    </a>
+    <p style="font-size:12px;color:var(--color-text-secondary);margin-top:0.75rem">Requirements masterclass · 25 June 2026</p>
+  </div>
+
+</div>
+</div>
+
+<script>
+function switchTab(name,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  btn.classList.add('active');
+}
+function checkMCQ(el,qid,correct){
+  var parent=el.closest('.q-activity');
+  parent.querySelectorAll('.q-opt').forEach(function(o){
+    o.classList.remove('sel-right','sel-wrong');
+    o.onclick=null;
+  });
+  parent.querySelectorAll('.q-feedback').forEach(function(f){f.classList.remove('show')});
+  if(correct){
+    el.classList.add('sel-right');
+    var fb=document.getElementById('fb-'+qid+'-right');
+    if(fb)fb.classList.add('show');
+  } else {
+    el.classList.add('sel-wrong');
+    var fw=document.getElementById('fb-'+qid+'-wrong');
+    if(fw)fw.classList.add('show');
+  }
+}
+function toggleReveal(id){
+  var el=document.getElementById(id);
+  el.classList.toggle('show');
+  var btn=el.previousElementSibling;
+  if(btn&&btn.classList.contains('reveal-btn')){
+    btn.textContent=el.classList.contains('show')?'Hide answer':'Reveal model answer';
+  }
+}
+</script>
+</body>
+</html>
